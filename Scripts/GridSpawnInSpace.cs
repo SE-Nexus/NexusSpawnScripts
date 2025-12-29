@@ -32,6 +32,9 @@ namespace NGPlugin.Scripts.ExampleScripts
         /*  Script Use:
          *      1. This will generate valid spawn point anywhere on the server this runs on inside a valid sector
          *      2. Several options to configurable spawning methods:
+         *          A. Spawn Near Planets: Will attempt to find a planet in a random sector on the destination server and spawn a set distance away from it.
+         *          B. Spawn Near Asteroid: Will attempt to find a random asteroid in a random sector on the destination server and spawn near it.
+         *          C. Spawn Random: Will attempt to find a random position in a random sector on the destination server.
          */
 
 
