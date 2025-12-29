@@ -30,26 +30,16 @@ namespace NGPlugin.Scripts.ExampleScripts
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
         /*  Script Use:
-         *      1. This will generate valid spawn point anywhere on the server inside a valid sector
-         *      2. 
-         * 
-         * 
-         * 
-         * 
-         * 
+         *      1. This will generate valid spawn point anywhere on the server this runs on inside a valid sector
+         *      2. Several options to configurable spawning methods:
          */
 
 
-        /*  Following bit will prioritize spawning near faction mates over the selected enum.
-         *      If no one is online, it will continue with the SelectedOption
-         *  
-         */
-
-        private bool SpawnNearFactionMembers = false;
-        private SpawnOption SelectedOption = SpawnOption.SpawnNearPlanets;
+        private bool SpawnNearFactionMembers = false; //Will attempt to spawn near faction members if unsectored. AWAITING IMPLEMENTATION
+        private SpawnOption SelectedOption = SpawnOption.SpawnNearPlanets; //Select spawn method
         private byte TargetSectorID = 0; //Will force spawn inside a target sectorID (0 will get random sector)
         private float PlanetSpawnDistancePercentRadius = 1.50f; //Will generate a spawn distance percent radius increase from planet
-        private int SpawnAttempts = 50;
+        private int SpawnAttempts = 50; //Number of attempts to find a valid spawn position.
 
 
 
@@ -63,7 +53,7 @@ namespace NGPlugin.Scripts.ExampleScripts
             SpawnNearPlanets,
             SpawnNearAsteroid,
             SpawnRandom,
-            SpawnNearTradeStation
+            SpawnNearTradeStation //Not Implemented Yet
         }
         BoundingSphereD SearchArea;
         private long IdentityID;
@@ -99,14 +89,6 @@ namespace NGPlugin.Scripts.ExampleScripts
             Log.Info($"Script Search Area: {SearchArea.ToString()}");
 
 
-            /* If unsectored? */
-            if (SpawnNearFactionMembers && TryFindPositionNearFaction(out List<Vector3D> options))
-            {
-                //Do crap here
-                Log.Info($"Found Nearest Faction!");
-                return;
-            }
-
             Log.Info($"Searching Method is: {SelectedOption}");
             switch (SelectedOption)
             {
@@ -119,7 +101,7 @@ namespace NGPlugin.Scripts.ExampleScripts
                     break;
 
                 case SpawnOption.SpawnNearTradeStation:
-
+                    Log.Fatal("SpawnNearTradeStation Not Implemented Yet!");
                     break;
 
                 default:
