@@ -272,6 +272,9 @@ namespace NexusModAPI
             [ProtoMember(50)]
             public byte thisClusterID;
 
+            [ProtoMember(60)]
+            public List<Gate> gates;
+
 
         }
 
@@ -370,6 +373,67 @@ namespace NexusModAPI
             [ProtoMember(8), DefaultValue("XYZ")] public string ServerAbbreviation { get; set; } = "XYZ";
             [ProtoMember(9), DefaultValue(0)] public byte LobbyServerID { get; set; } = 0;
         }
+
+        [ProtoContract]
+        public class Gate
+        {
+            [ProtoMember(5), DefaultValue("New Gate")] public string Name { get; set; } = "New Gate";
+            [ProtoMember(10), DefaultValue(true)] public bool isEnabled { get; set; } = true;
+            [ProtoMember(15), DefaultValue("")] public string GateScript { get; set; } = "";
+            [ProtoMember(20)] public bool OneWay { get; set; }
+
+
+
+
+
+            /* Gate Descriptions 1 & 2 */
+            [ProtoMember(30)] public string Description1 { get; set; }
+            [ProtoMember(35)] public string Description2 { get; set; }
+
+
+
+            /* Gate Servers 1 & 2 */
+            [ProtoMember(40), DefaultValue((byte)1)] public byte Gate1ServerID { get; set; } = 1;
+            [ProtoMember(45), DefaultValue((byte)1)] public byte Gate2ServerID { get; set; } = 1;
+
+
+
+            /* Position Vectors 1 & 2 */
+            [ProtoMember(50)] public double VP1x { get; set; }
+            [ProtoMember(55)] public double VP1y { get; set; }
+            [ProtoMember(60)] public double VP1z { get; set; }
+            [ProtoMember(65)] public double VP2x { get; set; }
+            [ProtoMember(70)] public double VP2y { get; set; }
+            [ProtoMember(75)] public double VP2z { get; set; }
+
+
+
+            /* Direction Vectors 1 & 2 */
+
+            [ProtoMember(80)] public double VD1x { get; set; }
+            [ProtoMember(85)] public double VD1y { get; set; }
+            [ProtoMember(90)] public double VD1z { get; set; }
+            [ProtoMember(95)] public double VD2x { get; set; }
+            [ProtoMember(100)] public double VD2y { get; set; }
+            [ProtoMember(105)] public double VD2z { get; set; }
+
+
+
+            /* Radius 1 & 2 */
+            [ProtoMember(110)] public double DetectionRadius1 { get; set; }
+            [ProtoMember(115)] public double DetectionRadius2 { get; set; }
+
+
+            /* Particle Effect Name 1 & 2 */
+            [ProtoMember(120), DefaultValue("p_subspace_start")] public string ParticleEffect1 { get; set; } = "p_subspace_start";
+            [ProtoMember(125), DefaultValue("p_subspace_end")] public string ParticleEffect2 { get; set; } = "p_subspace_end";
+
+
+            [ProtoMember(150), DefaultValue((double)1500)] public double GateSpawnDistance { get; set; } = 1500;
+
+
+        }
+
 
         public enum SectorShape
         {
