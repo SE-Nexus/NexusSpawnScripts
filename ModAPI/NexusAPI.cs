@@ -57,6 +57,8 @@ namespace NexusModAPI
             getAllOnlineServers = null;
             getAllOnlinePlayers = null;
             sendChatToDiscord = null;
+            remoteSpawnPadActivation = null;
+            getServerStatus = null;
             onEnabled = null;
             MyAPIGateway.Utilities.UnregisterMessageHandler(MessageId, ReceiveData);
         }
@@ -78,6 +80,7 @@ namespace NexusModAPI
                 getAllOnlinePlayers = getMethod((int)Methods.GetAllOnlinePlayers);
                 sendChatToDiscord = getMethod((int)Methods.SendChatToDiscord);
                 remoteSpawnPadActivation = getMethod((int)Methods.RemoteSpawnPadActivation);
+                getServerStatus = getMethod((int)Methods.GetServerStatus);
 
                 ServerDataMsgAPI serverData = MyAPIGateway.Utilities.SerializeFromBinary<ServerDataMsgAPI>(data.Item1);
                 Clusters = serverData.clusters;
@@ -224,9 +227,22 @@ namespace NexusModAPI
             return false;
         }
 
-
         private Func<object, object> remoteSpawnPadActivation;
 
+        /// <summary>
+        /// Gets comprehensive status information for a specific server by ID.
+        /// Returns status including online state, player count, max players, simulation speed, and display name.
+        /// </summary>
+        /// <param name="serverId">The byte ID of the server</param>
+        /// <returns>Tuple containing (isOnline, onlinePlayerCount, maxPlayers, simSpeed, displayName, serverId)</returns>
+        public MyTuple<bool, int, int, float, string, byte> GetServerStatus(byte serverId)
+        {
+            if (Enabled)
+                return (MyTuple<bool, int, int, float, string, byte>)getServerStatus(serverId);
+            return MyTuple.Create(false, 0, 0, 0f, "Unknown", serverId);
+        }
+
+        private Func<object, object> getServerStatus;
 
 
         private enum Methods
@@ -242,7 +258,8 @@ namespace NexusModAPI
             GetAllOnlinePlayers,
             SendChatToDiscord,
             SendChatToServers,
-            RemoteSpawnPadActivation
+            RemoteSpawnPadActivation,
+            GetServerStatus
         }
 
 
